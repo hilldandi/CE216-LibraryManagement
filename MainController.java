@@ -29,19 +29,16 @@ public class MainController {
     public void CreateNewBook()throws IOException {
         Gson gson = new Gson();
         createdir.mkdirs();
-        String name=(nameText).getText().toUpperCase(); //nameText yazan yer gui de verilen ad olacak
-        String combinedPath = FinalPath + name.toUpperCase();
-        String newFilePath;
-
-        File directory=new File(combinedPath);
-        newFilePath= name+".json";
+        String title=titleID.getText().toUpperCase(); //titleID ile bahsedilen GUI'deki textfield kısmının id is olacak.
+        String newFile;
+        newFile= title+".json";
 
         BookInformation course=new BookInformation();
         fillBook(course); //fillBook will be a method
         String newJson = gson.toJson(course); //toJson will be a method
 
         //Create new directory according to course code
-        File file = new File(directory,newFilePath);
+        File file = new File(FinalPath,newFile);
         try (FileWriter fileWriter = new FileWriter(file)) {
             fileWriter.write(newJson);
             System.out.println("JSON written to file successfully.");
@@ -49,7 +46,7 @@ public class MainController {
     }
     //Document address created
     static String userhome=System.getProperty("user.home");
-    static String GlobalpathName = "Document/";
-    static String FinalPath=userhome+File.separator+GlobalpathName;
+    static String fileName="Libray Storage/";
+    static String FinalPath=userhome+File.separator+fileName;
     static File createdir=new File(FinalPath);
 }
